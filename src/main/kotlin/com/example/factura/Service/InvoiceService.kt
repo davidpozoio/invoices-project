@@ -60,6 +60,10 @@ class InvoiceService {
         return invoiceRepository.findById(id)
     }
 
+    fun filterByTotal(total: Float): List<Invoice>{
+        return invoiceRepository.filterTotal(total)
+    }
+
     fun delete (id: Long?):String?{
         try{
             val response = invoiceRepository.findById(id)

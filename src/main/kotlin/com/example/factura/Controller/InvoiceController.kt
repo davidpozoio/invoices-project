@@ -43,4 +43,9 @@ class InvoiceController {
         println("Entered Delete By ID")
         return invoiceService.delete(id)
     }
+
+    @GetMapping("/filter-total/{total}")
+    fun filterByTotal(@PathVariable("total") total: Float): List<Invoice>{
+        return invoiceService.filterByTotal(total);
+    }
 }

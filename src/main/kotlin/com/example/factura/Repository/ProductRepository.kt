@@ -8,6 +8,4 @@ import org.springframework.data.jpa.repository.Query
 interface ProductRepository  : JpaRepository<Product, Long?> {
     fun findById (id: Long?): Product?
 
-    @Query(nativeQuery = true)
-    fun getMostTenSoldProducts(): List<Product>
 }

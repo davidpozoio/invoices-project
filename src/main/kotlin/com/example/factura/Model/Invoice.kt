@@ -10,7 +10,8 @@ class Invoice {
     var id: Long? = null;
     var code: String? = null;
     @Column(name="create_at")
-    var createdAt: LocalDate? = null;
+    var createdAt: LocalDate? = LocalDate.now();
     var total: Int? = null;
-    var client_id: Long? = null;
+    @Column(name = "cliente_id")
+    var clientId: Long? = null;
 }

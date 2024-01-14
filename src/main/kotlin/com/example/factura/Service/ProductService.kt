@@ -3,6 +3,8 @@ package com.example.factura.Service
 import com.example.factura.Model.Client
 import com.example.factura.Model.Product
 import com.example.factura.Repository.ProductRepository
+import com.example.factura.dto.ProductDto
+import com.example.factura.mapper.ProductMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -16,9 +18,16 @@ class ProductService {
     fun list ():List<Product>{
         return productRepository.findAll()
     }
+
+    fun listDto(): List<ProductDto>{
+        val products = productRepository.findAll()
+        return products.map { ProductMapper.mapToDto(it) }
+
+    }
     fun save(modelo: Product): Product{
         try{
             return productRepository.save(modelo)
+
         }
         catch (ex:Exception){
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)

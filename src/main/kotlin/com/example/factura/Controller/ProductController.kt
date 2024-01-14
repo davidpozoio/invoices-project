@@ -3,6 +3,7 @@ package com.example.factura.Controller
 import com.example.factura.Model.Client
 import com.example.factura.Model.Product
 import com.example.factura.Service.ProductService
+import com.example.factura.dto.ProductDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,6 +19,12 @@ class ProductController {
     fun list (): ResponseEntity<*> {
         var celularResponse=productService.list()
         return ResponseEntity.ok(mapOf("Felony" to "Sex Offender","status" to "success", "data" to celularResponse))
+    }
+
+    @GetMapping("/listDto")
+    fun listDto (): ResponseEntity<*>{
+        var products = productService.listDto();
+        return  ResponseEntity.ok( products);
     }
     @PostMapping
     fun save (@RequestBody modelo: Product): ResponseEntity<Product> {

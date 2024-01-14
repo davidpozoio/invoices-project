@@ -8,6 +8,4 @@ import org.springframework.data.jpa.repository.Query
 interface ClientRepository  : JpaRepository<Client, Long?> {
     fun findById (id: Long?): Client?
 
-    @Query(nativeQuery = true)
-    fun getInvoicesWithTotal(): List<Client>
 }

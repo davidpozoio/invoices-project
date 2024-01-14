@@ -1,8 +1,6 @@
 package com.example.factura.Service
 
-import com.example.factura.Model.Client
 import com.example.factura.Model.Detail
-import com.example.factura.Repository.ClientRepository
 import com.example.factura.Repository.DetailRepository
 import com.example.factura.Repository.InvoiceRepository
 import com.example.factura.Repository.ProductRepository
@@ -25,11 +23,21 @@ class DetailService {
         return detailRepository.findAll()
     }
     fun save(modelo: Detail): Detail{
-        productRepository.findById(modelo.product_id)
-            ?:throw Exception("Id del cliente no existe")
-        invoiceRepository.findById(modelo.invoice_id)
+        val product = productRepository.findById(modelo.productId)
+            ?:throw Exception("Id del producto no existe")
+        val invoice = invoiceRepository.findById(modelo.invoiceId)
             ?:throw Exception("Id del Invoice no existe")
         try{
+            val details = detailRepository.findAllByInvoiceId(modelo.invoiceId!!)
+            var total = 0.00
+
+            for(detail in details){
+                total += detail.quantity!! * detail.price!!
+            }
+
+            product.apply { stock = stock!! - modelo.quantity!! }
+            productRepository.save(product)
+            invoice.apply { this.total = total.toInt() }
             return detailRepository.save(modelo)
         }
         catch (ex:Exception){

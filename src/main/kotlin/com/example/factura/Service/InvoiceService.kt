@@ -1,8 +1,8 @@
 package com.example.factura.Service
 
-import com.example.factura.Model.Client
 import com.example.factura.Model.Invoice
 import com.example.factura.Repository.ClientRepository
+import com.example.factura.Repository.DetailRepository
 import com.example.factura.Repository.InvoiceRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -15,13 +15,14 @@ class InvoiceService {
     lateinit var clientRepository: ClientRepository
     @Autowired
     lateinit var invoiceRepository: InvoiceRepository
+    @Autowired
+    lateinit var detailRepository: DetailRepository
+
 
     fun list ():List<Invoice>{
         return invoiceRepository.findAll()
     }
     fun save(modelo: Invoice): Invoice{
-        clientRepository.findById(modelo.client_id)
-            ?:throw Exception("Id del cliente no existe")
 
         try{
             return invoiceRepository.save(modelo)

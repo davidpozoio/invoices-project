@@ -16,7 +16,7 @@ class ClientController {
     @GetMapping
     fun list (): ResponseEntity<*> {
         var celularResponse=clientService.list()
-        return ResponseEntity.ok(mapOf("Felony" to "Sex Offender","status" to "success", "data" to celularResponse))
+        return ResponseEntity.ok(mapOf("status" to "success", "data" to celularResponse))
     }
     @PostMapping
     fun save (@RequestBody modelo: Client): ResponseEntity<Client> {

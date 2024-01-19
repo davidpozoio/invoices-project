@@ -30,7 +30,9 @@ class SecurityConfig {
             .sessionManagement{sess->sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)}
             .authorizeHttpRequests{authRequest->
                 authRequest
-                    .requestMatchers("/auth/*").permitAll()
+                    .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers("/clients/**").hasAnyRole("admin")
+                    .requestMatchers("/products/**").hasAnyRole("client")
                     .anyRequest()
                     .authenticated()
             }
